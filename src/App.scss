@@ -1,0 +1,19 @@
+@media screen and (min-width: 2000px) {
+  .App{
+    padding: 0 25%;
+  }
+}
+@media screen and (max-width: 2000px) {
+  .App{
+    padding: 0 100px;
+  }
+}
+
+.App{
+  font-family: "Raleway", sans-serif;
+  color: #1D1F22;
+  a{
+    text-decoration: none;
+    color: #1D1F22;
+  }
+}

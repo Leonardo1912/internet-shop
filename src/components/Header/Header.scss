@@ -1,0 +1,41 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+
+  .categories {
+    text-transform: uppercase;
+    display: flex;
+    height: 100%;
+
+    .category {
+      margin-right: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .category:last-child {
+      margin-right: 0;
+    }
+
+    .active {
+      color: #5ECE7B;
+      border-bottom: 2px solid #5ECE7B;
+    }
+  }
+  .currencies{
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 20px;
+    .active-currency{
+      margin-right: 10px;
+    }
+    .icon{
+      font-size: 10px;
+    }
+  }
+
+}
