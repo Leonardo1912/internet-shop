@@ -26,15 +26,42 @@
       border-bottom: 2px solid #5ECE7B;
     }
   }
-  .currencies{
-    font-size: 18px;
-    font-weight: 500;
-    margin-right: 20px;
-    .active-currency{
-      margin-right: 10px;
-    }
-    .icon{
-      font-size: 10px;
+
+  .icons {
+    display: flex;
+
+    .currencies {
+      font-size: 18px;
+      font-weight: 500;
+      margin-right: 20px;
+
+      .active-currency {
+        margin-right: 10px;
+      }
+
+      .icon {
+        font-size: 10px;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        .dropdown-content{
+          position: relative;
+          right: 30px;
+          top: 10px;
+          .currency{
+            padding: 8px 40px 8px 20px;
+          }
+          .currency:hover{
+            background: #EEEEEE;
+          }
+        }
+      }
+
+      .active-dropdown {
+        display: block;
+      }
     }
   }
 

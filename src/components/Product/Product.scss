@@ -1,0 +1,11 @@
+.Product{
+  display: flex;
+  .photo-block{
+    display: flex;
+    .gallery{
+      img{
+        width: 80px;
+      }
+    }
+  }
+}

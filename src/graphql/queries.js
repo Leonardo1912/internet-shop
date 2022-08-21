@@ -5,6 +5,10 @@ export const GET_CATEGORIES = gql`
         categories {
             name
         }
+        currencies {
+            label
+            symbol
+        }
     }
 `
 export const GET_CATEGORY = gql`
@@ -24,6 +28,37 @@ export const GET_CATEGORY = gql`
                     }
                 }
             }
+        }
+    }
+`
+
+export const GET_PRODUCT = gql`
+    query ($id: String!) {
+        product(id: $id){
+            id
+            name
+            inStock
+            gallery
+            description
+            category
+            attributes {
+                id
+                name
+                type
+                items {
+                    displayValue
+                    value
+                    id
+                }
+            }
+            prices {
+                currency {
+                    label
+                    symbol
+                }
+                amount
+            }
+            brand
         }
     }
 `

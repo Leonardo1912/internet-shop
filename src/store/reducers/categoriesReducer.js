@@ -3,11 +3,15 @@ import {GET_CATEGORIES, GET_CATEGORY} from "../../graphql/queries";
 
 const SET_CATEGORIES = "SET_CATEGORIES"
 const SET_CATEGORY = "SET_CATEGORY"
+const SET_CURRENCIES = "SET_CURRENCIES"
+const SET_CURRENCY = "SET_CURRENCY"
 const IS_LOADING = "IS_LOADING"
 
 let initialState = {
     categories: [],
     category: [],
+    currencies: [],
+    currency: 0,
     loading: true
 }
 
@@ -22,10 +26,17 @@ const categoriesReducer = (state = initialState, action) => {
         case SET_CATEGORY: {
             return {...state, category: action.payload}
         }
+        case SET_CURRENCIES: {
+            return {...state, currencies: action.payload}
+        }case SET_CURRENCY: {
+            return {...state, currency: action.payload}
+        }
         default:
             return state
     }
 }
+
+export const setActiveCurrency = (payload) => ({type:SET_CURRENCY, payload})
 
 export const GetCategories = () => {
     return async (dispatch) => {
@@ -33,7 +44,8 @@ export const GetCategories = () => {
         const data = await apolloClient.query({
             query: GET_CATEGORIES
         })
-        dispatch({type: SET_CATEGORIES, payload: data.data})
+        dispatch({type: SET_CATEGORIES, payload: data.data.categories})
+        dispatch({type: SET_CURRENCIES, payload: data.data.currencies})
         dispatch({type: IS_LOADING, payload: data.loading})
     }
 }
