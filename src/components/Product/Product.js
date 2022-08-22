@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import "./Product.scss"
 import {useDispatch, useSelector} from "react-redux";
-import {GetProduct} from "../../store/reducers/productReducer";
+import {GetProduct, UpdateProduct} from "../../store/reducers/productReducer";
 import {useParams} from "react-router-dom";
 import parse from "html-react-parser";
+import ChooseAttributesInProduct from "../../common/chooseAttributes";
+import {SetCart} from "../../store/reducers/cartReducer";
 
 const Product = () => {
 
@@ -21,8 +23,35 @@ const Product = () => {
     const activeCurrency = useSelector(state => state.categoriesPage.currency)
     const product = useSelector(state => state.productPage.product)
 
+    const [errorAttributes, setErrorAttributes] = useState(false)
+    const [errorInStock, setErrorInStock] = useState(false)
+    const [activeAttributes, setActiveAttributes] = useState([])
+
+    const addToCart = () => {
+        if(product.inStock){
+            if (activeAttributes.length === product.attributes.length) {
+                dispatch(SetCart(product))
+                setErrorAttributes(false)
+            }
+            else {
+                setErrorAttributes(true)
+            }
+        }
+        else {
+            setErrorInStock(true)
+        }
+    }
+
     if (loading) {
         return <div>LOADING...</div>
+    }
+
+    const setClass = (attribute, item) => {
+        if (attribute.id === "Color") {
+            return item.active ? "color active-color" : "color"
+        } else {
+            return item.active ? "item active-item" : "item"
+        }
     }
 
     return (
@@ -40,22 +69,30 @@ const Product = () => {
                     <div className="name">{product.name}</div>
                 </div>
                 <div className="attributes">{product.attributes.map(attribute =>
-                    <div key={attribute.id}>
+                    <div key={attribute.id} className={"attribute"}>
                         <div className="attribute-name">
-                            {attribute.name}
+                            {attribute.name}:
                         </div>
                         <div className="items">
                             {attribute.items.map(item =>
-                                <div className="item">
-                                    {item.value}
+                                <div className={setClass(attribute, item)} key={item.id}
+                                     style={attribute.id === "Color" ? {background: item.value} : {}}
+                                     onClick={() => dispatch(UpdateProduct(ChooseAttributesInProduct(product, item.id, attribute.id, setActiveAttributes, activeAttributes)))}>
+                                    {attribute.id !== "Color" && item.value}
                                 </div>
                             )}
                         </div>
                     </div>)}
                 </div>
-                <div className="price">{product.prices[activeCurrency].currency.symbol + product.prices[activeCurrency].amount}</div>
+                <div className="price-block">
+                    <div>PRICE:</div>
+                    <div
+                        className={"price"}>{product.prices[activeCurrency].currency.symbol + product.prices[activeCurrency].amount}</div>
+                </div>
                 <div className="button">
-                    <button>ADD TO CART</button>
+                    <button onClick={() => addToCart()}>ADD TO CART</button>
+                    {errorAttributes && <div className={"error"}>Choose attributes</div>}
+                    {errorInStock && <div className={"error"}>Out of stock</div>}
                 </div>
                 <div className="description">{parse(product.description)}</div>
             </div>

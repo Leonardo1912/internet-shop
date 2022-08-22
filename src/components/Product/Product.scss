@@ -1,11 +1,107 @@
 .Product{
   display: flex;
+  padding-top: 80px;
+
   .photo-block{
     display: flex;
+    margin-right: 100px;
     .gallery{
+      margin-right: 40px;
       img{
         width: 80px;
+        margin-bottom: 30px;
       }
+    }
+    .main-photo{
+        img{
+          width: 600px;
+        }
+    }
+  }
+  .content{
+    .title{
+      font-size: 30px;
+      margin-bottom: 40px;
+      .brand{
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .name{
+
+      }
+    }
+    .attributes{
+      margin-bottom: 36px;
+      .attribute{
+        margin-bottom: 24px;
+        .attribute-name{
+          font-family: 'Roboto Condensed', sans-serif;
+          font-weight: 700;
+          font-size: 18px;
+          text-transform: uppercase;
+        }
+        .items{
+          display: flex;
+          .item{
+            border: 1px solid #1D1F22;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 65px;
+            height: 45px;
+          }
+          .item:last-child{
+            margin-right: 0;
+          }
+          .active-item{
+            background: #1D1F22;
+            color: white;
+          }
+          .color{
+            border: 2px solid #1D1F22;
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+          }
+          .color:last-child{
+            margin-right: 0;
+          }
+          .active-color{
+            border: 2px solid #fb5e4f;
+          }
+        }
+      }
+      .attribute:last-child{
+        margin-bottom: 0;
+      }
+    }
+    .price-block{
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 20px;
+      .price{
+        font-size: 24px;
+      }
+    }
+    .button{
+      width: 100%;
+      margin-bottom: 40px;
+      button{
+        width: 100%;
+        background: #5ECE7B;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 16px 0;
+      }
+      .error{
+        color: red;
+        font-size: 25px;
+      }
+    }
+    .description{
+
     }
   }
 }
