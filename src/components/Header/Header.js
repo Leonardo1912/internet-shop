@@ -56,9 +56,9 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-                <div>
+                <Link to="/cart" >
                     <FontAwesomeIcon icon={faShoppingCart}/>
-                </div>
+                </Link>
             </div>
         </div>
     );

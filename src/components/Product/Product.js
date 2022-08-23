@@ -13,7 +13,7 @@ const Product = () => {
 
     const params = useParams()
 
-    const [activePhoto, setPhoto] = useState(0)
+
 
     useEffect(() => {
         dispatch(GetProduct(params.product))
@@ -23,6 +23,7 @@ const Product = () => {
     const activeCurrency = useSelector(state => state.categoriesPage.currency)
     const product = useSelector(state => state.productPage.product)
 
+    const [activePhoto, setPhoto] = useState(0)
     const [errorAttributes, setErrorAttributes] = useState(false)
     const [errorInStock, setErrorInStock] = useState(false)
     const [activeAttributes, setActiveAttributes] = useState([])

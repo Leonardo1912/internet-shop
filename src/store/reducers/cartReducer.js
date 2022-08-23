@@ -1,7 +1,8 @@
 const SET_CART = "SET_CART"
 
 let initialState = {
-    cart: []
+    cart: [],
+    quantity: 1
 }
 
 const cartReducer = (state = initialState, action) => {
