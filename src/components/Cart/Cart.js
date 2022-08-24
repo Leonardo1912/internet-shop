@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./Cart.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {ChooseAttributesInCart} from "../../common/chooseAttributes";
+import {SetQuantity, UpdateCart} from "../../store/reducers/cartReducer";
+import {ChangeCount} from "../../common/changeCount";
+import {CalculateQuantity} from "../../common/quantity";
 
 const Cart = () => {
 
@@ -20,12 +24,16 @@ const Cart = () => {
         }
     }
 
+    useEffect( () => {
+        dispatch(SetQuantity(CalculateQuantity(cart)))
+    },[cart])
+
 
     return (
         <div className={"Cart"}>
             <div className="title">CART</div>
             <div className="products">
-                {quantity === 0 ? <div>There are no items in the cart</div>
+                {cart.length === 0 ? <div className={"cart-is-empty"}>There are no items in the cart</div>
                     : cart.map(product =>
                         <div className="product" key={product.id}>
                             <div className="description">
@@ -43,6 +51,7 @@ const Cart = () => {
                                             <div className="items">
                                                 {attribute.items.map(item =>
                                                     <div className={setClass(attribute, item)} key={item.id}
+                                                         onClick={() => dispatch(UpdateCart(ChooseAttributesInCart(cart, product, item.id, attribute.id)))}
                                                          style={attribute.id === "Color" ? {background: item.value} : {}}>
                                                         {attribute.id !== "Color" && item.value}
                                                     </div>)}
@@ -52,9 +61,13 @@ const Cart = () => {
                             </div>
                             <div className="photo-block">
                                 <div className="count-block">
-                                    <div className={"change-count"}>+</div>
-                                    <div className={"count"}>1</div>
-                                    <div className={"change-count"}>-</div>
+                                    <div className={"change-count"}
+                                         onClick={() => dispatch(UpdateCart(ChangeCount(cart, product, true)))}>+
+                                    </div>
+                                    <div className={"count"}>{product.count}</div>
+                                    <div className={"change-count"}
+                                         onClick={() => dispatch(UpdateCart(ChangeCount(cart, product, false)))}>-
+                                    </div>
                                 </div>
                                 <div>
                                     <div className="photo"><img src={product.gallery[0]} alt=""/></div>
@@ -68,7 +81,7 @@ const Cart = () => {
             </div>
             <div className="price-info">
                 <div className="tax">Tax 21%: <span className={"item-info"}>$42</span></div>
-                <div className="quantity">Quantity: <span className={"item-info"}>3</span></div>
+                <div className="quantity">Quantity: <span className={"item-info"}>{quantity}</span></div>
                 <div className="total">Total: <span className={"item-info"}>$200.00</span></div>
                 <div className="button">
                     <button>ORDER</button>

@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {GetProduct, UpdateProduct} from "../../store/reducers/productReducer";
 import {useParams} from "react-router-dom";
 import parse from "html-react-parser";
-import ChooseAttributesInProduct from "../../common/chooseAttributes";
 import {SetCart} from "../../store/reducers/cartReducer";
+import {ChooseAttributesInProduct} from "../../common/chooseAttributes";
 
 const Product = () => {
 
